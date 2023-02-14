@@ -1,14 +1,5 @@
 openapi: 3.1.0
 info:
-  version: 1.0.0
-  title: Example.com
-  termsOfService: https://example.com/terms/
-  contact:
-    email: contact@example.com
-    url: http://example.com/contact
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: |
     This is an **example** API to demonstrate features of the OpenAPI specification.
 
@@ -68,15 +59,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Resume'
+              $ref: '#/components/schemas/CreateResumeRequest'
       responses:
         '200':
           description: OK
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: resume_417K3BFfLV
+                $ref: '#/components/schemas/Resume'
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/Problem'
+    get:
+      tags:
+        - Resumes
+      description: Search Resumes by name
+      operationId: searchResumeByName
+      parameters:
+        - name: id
+          in: query
+          description: Enter name to search for Resumes
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resume'
         '400':
           description: Bad Request
           $ref: '#/components/responses/Problem'
@@ -84,10 +96,9 @@ paths:
     get:
       tags:
         - Resumes
-      summary: Get Resume by ResumeId
       description: |
         Fetch a Resume by resume id
-      operationId: getUserByName
+      operationId: getResumeById
       parameters:
         - name: id
           in: path
@@ -107,21 +118,24 @@ components:
     Resume:
       type: object
       properties:
-        name:
-          description: candidate name in Resume
+        id:
+          description: Server generated unique id
           type: string
-          minLength: 1
+          example: resume_417K3BFfLV
+        name:
+          description: Candidate name in Resume
+          type: string
           example: John
-        jobTitle:
+        job_title:
           description: Candidate's current job title in Resume
           type: string
           example: Software Engineer
-        jobDescription:
+        job_description:
           description: Candidate's current job description in Resume
           type: string
           example: Works with Java SpringBoot
-        comapny:
-          description: Candidate's current company where he works
+        company:
+          description: Candidate's current company where the candidate works
           type: String
           example: Infosys
     Problem:
@@ -148,6 +162,25 @@ components:
         instance:
           type: string
           description: A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced.
+    CreateResumeRequest:
+      type: object
+      properties:
+        name:
+          description: Candidate name in Resume
+          type: string
+          example: John
+        job_title:
+          description: Candidate's current job title in Resume
+          type: string
+          example: Software Engineer
+        job_description:
+          description: Candidate's current job description in Resume
+          type: string
+          example: Works with Java SpringBoot
+        company:
+          description: Candidate's current company where he works
+          type: String
+          example: Infosys
   responses:
     Problem:
       description: Problem

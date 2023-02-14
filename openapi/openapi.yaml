@@ -1,14 +1,14 @@
 openapi: 3.1.0
 info:
-  version: 1.0.0
-  title: Example.com
-  termsOfService: 'https://example.com/terms/'
-  contact:
-    email: contact@example.com
-    url: 'http://example.com/contact'
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  # version: 1.0.0
+  # title: Example.com
+  # termsOfService: 'https://example.com/terms/'
+  # contact:
+  #   email: contact@example.com
+  #   url: 'http://example.com/contact'
+  # license:
+  #   name: Apache 2.0
+  #   url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   # x-logo:
   #   url: 'https://redocly.github.io/openapi-template/logo.png'
   description:
@@ -25,9 +25,9 @@ servers:
   - url: 'https://example.com/api/v1'
 paths:
   '/resumes':
-    $ref: 'paths/create-resumes-request.yaml'
-  '/resumes/{id}':
     $ref: 'paths/resumes.yaml'
+  '/resumes/{id}':
+    $ref: 'paths/resumes_{id}.yaml'
 # components:
 #   securitySchemes:
 #     main_auth:

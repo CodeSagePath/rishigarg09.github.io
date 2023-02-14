@@ -1,0 +1,11 @@
+type: object
+properties:
+  items:
+    description: List of Resumes
+    type: array
+    items:
+      $ref: Resume.yaml
+  page_count:
+    type: integer
+    format: int64
+    

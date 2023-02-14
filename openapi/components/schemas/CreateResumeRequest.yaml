@@ -1,23 +1,18 @@
 type: object
 properties:
-  id: 
-    description: Server generated unique id
-    type: string
-    example: resume_417K3BFfLV
   name:
-    description: candidate name in Resume
+    description: Candidate name in Resume
     type: string
-    minLength: 1
     example: John 
-  jobTitle:
+  job_title:
     description: Candidate's current job title in Resume
     type: string
     example: Software Engineer
-  jobDescription:
+  job_description:
     description: Candidate's current job description in Resume
     type: string
     example: Works with Java SpringBoot
-  comapny:
+  company:
     description: Candidate's current company where he works
     type: String
     example: Infosys

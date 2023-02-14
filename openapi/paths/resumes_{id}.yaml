@@ -1,0 +1,31 @@
+get:
+  tags:
+    - Resumes
+  description: |
+    Fetch a Resume by resume id
+  summary: Get a Resume
+  operationId: getResumeById
+  parameters:
+    - name: id
+      in: path
+      description: The Resume that needs to be fetched
+      required: true
+      schema:
+        type: string
+  # security:
+  #   - main_auth:
+  #       - 'read:users'
+  #   - api_key: []
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Resume.yaml
+    # '403':
+    #   description: Forbidden
+    #   $ref: ../components/responses/Problem.yaml
+    # '404':
+    #   description: User not found
+    #   $ref: ../components/responses/Problem.yaml
