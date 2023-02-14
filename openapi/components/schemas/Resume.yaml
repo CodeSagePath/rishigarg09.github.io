@@ -1,0 +1,19 @@
+type: object
+properties:
+  name:
+    description: candidate name in Resume
+    type: string
+    minLength: 1
+    example: John 
+  jobTitle:
+    description: Candidate's current job title in Resume
+    type: string
+    example: Software Engineer
+  jobDescription:
+    description: Candidate's current job description in Resume
+    type: string
+    example: Works with Java SpringBoot
+  comapny:
+    description: Candidate's current company where he works
+    type: String
+    example: Infosys

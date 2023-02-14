@@ -1,0 +1,157 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Example.com
+  termsOfService: https://example.com/terms/
+  contact:
+    email: contact@example.com
+    url: http://example.com/contact
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: |
+    This is an **example** API to demonstrate features of the OpenAPI specification.
+
+    # Introduction
+
+    This API definition is intended to to be a good starting point for
+    describing your API in 
+
+    [OpenAPI/Swagger
+    format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md).
+
+    It also demonstrates features of the
+    [create-openapi-repo](https://github.com/Redocly/create-openapi-repo) tool
+    and 
+
+    the [Redoc](https://github.com/Redocly/Redoc) documentation engine. Beyond
+    the standard OpenAPI syntax, we use a few 
+
+    [vendor
+    extensions](https://github.com/Redocly/Redoc/blob/master/docs/redoc-vendor-extensions.md).
+
+
+    # OpenAPI Specification
+
+    The goal of The OpenAPI Specification is to define a standard,
+    language-agnostic interface to REST APIs which
+
+    allows both humans and computers to discover and understand the capabilities
+    of the service without access to source
+
+    code, documentation, or through network traffic inspection. When properly
+    defined via OpenAPI, a consumer can 
+
+    understand and interact with the remote service with a minimal amount of
+    implementation logic. Similar to what
+
+    interfaces have done for lower-level programming, OpenAPI removes the
+    guesswork in calling the service.
+tags:
+  - name: Resumes
+    description: Operations about Resumes.
+servers:
+  - url: https://{tenant}/api/v1
+    variables:
+      tenant:
+        default: www
+        description: Your tenant id
+  - url: https://example.com/api/v1
+paths:
+  /resumes:
+    post:
+      tags:
+        - Resumes
+      description: Create a Resume
+      operationId: createResume
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resume'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: resume_417K3BFfLV
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/Problem'
+  /resumes/{id}:
+    get:
+      tags:
+        - Resumes
+      summary: Get Resume by ResumeId
+      description: |
+        Fetch a Resume by resume id
+      operationId: getUserByName
+      parameters:
+        - name: id
+          in: path
+          description: The Resume that needs to be fetched
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resume'
+components:
+  schemas:
+    Resume:
+      type: object
+      properties:
+        name:
+          description: candidate name in Resume
+          type: string
+          minLength: 1
+          example: John
+        jobTitle:
+          description: Candidate's current job title in Resume
+          type: string
+          example: Software Engineer
+        jobDescription:
+          description: Candidate's current job description in Resume
+          type: string
+          example: Works with Java SpringBoot
+        comapny:
+          description: Candidate's current company where he works
+          type: String
+          example: Infosys
+    Problem:
+      type: object
+      additionalProperties: true
+      minProperties: 1
+      description: The Problem Details JSON Object [[RFC7807](https://tools.ietf.org/html/rfc7807)].
+      properties:
+        type:
+          type: string
+          description: A URI reference [[RFC3986](https://tools.ietf.org/html/rfc3986)] that identifies the problem type. It should provide human-readable documentation for the problem type. When this member is not present, its value is assumed to be "about:blank".
+          format: uri
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+        status:
+          type: integer
+          description: The HTTP status code.
+          minimum: 400
+          maximum: 599
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced.
+  responses:
+    Problem:
+      description: Problem
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'

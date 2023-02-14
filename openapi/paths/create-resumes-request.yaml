@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Resumes
+  description: Create a Resume
+  operationId: createResume
+  requestBody:
+    content: 
+      application/json:
+        schema:
+          $ref: ../components/schemas/Resume.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: resume_417K3BFfLV 
+    '400':
+      description: Bad Request
+      $ref: ../components/responses/Problem.yaml
